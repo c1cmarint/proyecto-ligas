@@ -295,6 +295,7 @@ header nav ul li a:hover {
 	background-position: center;
 	background-attachment: fixed;
 	position: relative;
+	padding-top: 40px;
 }
 
 #contacta::before {
@@ -820,6 +821,9 @@ caption {
 	align-items: center;
 	justify-content: space-around;
 }
+
+.tarjetas div span {
+	font-size: 24px;
   
 .tarjetas-amarillas {
 	width: 48px;
