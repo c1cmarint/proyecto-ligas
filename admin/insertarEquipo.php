@@ -29,11 +29,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$nombre_equipo = $_POST['equipo'];
 	  
 	$equipo_existe = $conexion->prepare('
-		  SELECT * FROM equipos WHERE nombre = :nombre_equipo
+		  SELECT * FROM equipos WHERE nombre = :nombre_equipo AND id_liga = :id_liga
 	');
   
 	$equipo_existe->execute(array(
-		':nombre_equipo' => $nombre_equipo
+		':nombre_equipo' => $nombre_equipo,
+		':id_liga' => $id_liga
 	));
 			
 	$equipo_existe = $equipo_existe->fetchAll();
@@ -54,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		));
 		header('Location: liga-admin.php?id=' . $id_liga);
 	} else {
-		echo '<div class="alert alert-danger">Este equipo ya existe. Prueba con otro nombre.</div>';
+		echo '<div class="alert alert-danger">Este equipo ya está inscrito en esta liga. Prueba con otro nombre.</div>';
 	}
 }
 
