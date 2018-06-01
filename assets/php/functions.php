@@ -21,7 +21,7 @@ function comprobarAdmin($conexion, $usuario) {
 
 function obtener_ligas($conexion) {
   $consulta = $conexion->prepare('
-    SELECT * FROM ligas
+    SELECT * FROM ligas ORDER BY nombre
   ');
   $consulta->execute();
   return $consulta->fetchAll();
