@@ -37,7 +37,7 @@
 	</head>
 <body>
 	<a href="liga.php?id=<?php echo $id_liga; ?>"><div class="back content-center" title="Volver"><span><i class="fas fa-arrow-left"></i></span></div></a>
-	<a href="index.php"><div class="home content-center"><i class="fas fa-home"></i></div></a>
+	<a href="index.php"><div class="home content-center" title="Inicio"><i class="fas fa-home"></i></div></a>
 	<section class="content content-center">
 		<div class="container">
 			<div class="container-equipo">
