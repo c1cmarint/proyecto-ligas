@@ -142,7 +142,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
 			));
 		}
 
-		for ($z=1; $z <= $_POST['tarjetas-v-l']; $z++) { 
+		for ($z=1; $z <= $_POST['tarjetas-r-v']; $z++) { 
 			$roja = $_POST['rojas-v-' . $z];
 
 			$insertar_roja  = $conexion->prepare('
