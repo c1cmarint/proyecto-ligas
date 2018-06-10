@@ -12,6 +12,5 @@ $consulta = $conexion->prepare('
 $consulta->execute(array(
 	':id' => $id
 ));
-
-header('Location: index.php');
+echo '<script> location.href="index.php"; </script>';
 ?>
