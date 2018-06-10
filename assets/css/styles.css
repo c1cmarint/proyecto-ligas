@@ -803,6 +803,10 @@ caption {
        display: block;
        overflow-x: auto;
      }
+	
+	.estadisticas-tablas table {
+		display: table !important;
+	}
 }
 
 .jugador-info-half {
