@@ -43,7 +43,7 @@
 		<i id="menu" class="fas fa-bars"></i>
 		<i id="cross" class="fas fa-times"></i>
 	</div>
-	<a href="index.php"><div class="home content-center"><i class="fas fa-home"></i></div></a>
+	<a href="index.php"><div class="home content-center" title="Inicio"><i class="fas fa-home"></i></div></a>
 	<header>
 		<nav>
 			<ul>
