@@ -154,8 +154,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
 				':id_liga' => $id_liga
 			));
 		}
-
-		header('Location: liga-admin.php?id=' . $id_liga);
+		echo '<script> location.href="liga-admin.php?id=' . $id_liga . '"; </script>';
 	}
 
 } else {
