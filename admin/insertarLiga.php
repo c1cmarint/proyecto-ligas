@@ -18,33 +18,6 @@ if ($now > $_SESSION['expire']) {
 	header('Location: login.php');
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	$nombre_liga = $_POST['liga'];
-
-	$liga_existe = $conexion->prepare('
-		  SELECT * FROM ligas WHERE nombre = :nombre_liga
-	');
-
-	  $liga_existe->execute(array(
-		':nombre_liga' => $nombre_liga
-	));
-	
-	$liga_existe = $liga_existe->fetchAll();
-
-	  if (count($liga_existe) == 0) {
-		$consulta = $conexion->prepare('
-			INSERT INTO ligas (nombre) VALUES (:nombre_liga)
-		');
-
-		  $consulta->execute(array(
-			':nombre_liga' => $nombre_liga
-		  ));
-		  header('Location: index.php');	
-	  } else {
-		echo '<div class="alert alert-danger">Esta liga ya existe. Prueba con otro nombre.</div>';
-	  }
-	}
-
 ?>
 
 <!DOCTYPE html>
@@ -78,6 +51,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	    <h1 class="title" style="color:#2b3c4d;">INSERTAR LIGA</h1>
     	<form method="post">
       		<input type="text" name="liga" placeholder="Nombre de la Liga" required>
+		<?php
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$nombre_liga = $_POST['liga'];
+
+			$liga_existe = $conexion->prepare('
+		  		SELECT * FROM ligas WHERE nombre = :nombre_liga
+			');
+
+	  		$liga_existe->execute(array(
+				':nombre_liga' => $nombre_liga
+			));
+	
+			$liga_existe = $liga_existe->fetchAll();
+
+	  		if (count($liga_existe) == 0) {
+				$consulta = $conexion->prepare('
+					INSERT INTO ligas (nombre) VALUES (:nombre_liga)
+				');
+
+		  		$consulta->execute(array(
+					':nombre_liga' => $nombre_liga
+		  		));
+		  		echo '<script> location.href="index.php"; </script>';	
+	  		} else {
+				echo '<div class="alert alert-danger">Esta liga ya existe. Prueba con otro nombre.</div>';
+	  		}
+		}
+		?>
 	      	<input type="submit" value="Insertar">
     	</form>
 	  </div>
