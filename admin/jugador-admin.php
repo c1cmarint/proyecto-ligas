@@ -25,39 +25,6 @@ if ($now > $_SESSION['expire']) {
 	header('Location: login.php');
 }
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
-	$nombre = $_POST['nombre'];
-	$apellidos = $_POST['apellidos'];
-	$dorsal = $_POST['dorsal'];
-
-	$existe_dorsal = $conexion->prepare('
-		SELECT * FROM jugadores WHERE dorsal = :dorsal_jugador AND id_equipo = :id_equipo AND id != :id_jugador
-	');
-
-	$existe_dorsal->execute(array(
-		':dorsal_jugador' => $dorsal,
-		':id_equipo' => $id_equipo,
-		':id_jugador' => $id_jugador
-	));
-				   
-	$existe_dorsal = $existe_dorsal->fetchAll();
-
-	if (count($existe_dorsal) == 0) {	
-		$consulta = $conexion->prepare('
-			UPDATE jugadores SET nombre = :nombre, apellidos = :apellidos, dorsal = :dorsal WHERE id = :id_jugador
-		  ');
-
-		$consulta->execute(array(
-			':nombre' => $nombre,
-			':apellidos' => $apellidos,
-			':dorsal' => $dorsal,
-			':id_jugador' => $id_jugador
-		));
-		header('Location: liga-admin.php?id=' . $id_liga);
-	} else {
-		echo '<div class="alert alert-danger">El dorsal ya está cogido. Prueba con otro dorsal.</div>';
-	}
-}
 ?>
 
 <!DOCTYPE html>
@@ -90,10 +57,46 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<div class="container-insertar-liga">
 	    <h2 class="title" style="color:#2b3c4d;">Modificar Jugador</h2>
 			<img class="img-jugador" src="../assets/img/jugadores/<?php echo $jugador['foto']; ?>" alt="<?php echo $jugador['nombre'] . ' ' . $jugador['apellidos']; ?>">
-      		<form method="post">
+      			<form method="post">
 				<input type="text" name="nombre" value="<?php echo $jugador['nombre'] ?>" required>
 	  			<input type="text" name="apellidos" value="<?php echo $jugador['apellidos'] ?>" required>
 	  			<input type="number" name="dorsal" value="<?php echo $jugador['dorsal'] ?>" min="1" max="99" required>	  
+				<?php
+				if($_SERVER['REQUEST_METHOD'] == 'POST') {
+					$nombre = $_POST['nombre'];
+					$apellidos = $_POST['apellidos'];
+					$dorsal = $_POST['dorsal'];
+	
+					$existe_dorsal = $conexion->prepare('
+						SELECT * FROM jugadores WHERE dorsal = :dorsal_jugador AND id_equipo = :id_equipo AND id != :id_jugador
+					');
+
+					$existe_dorsal->execute(array(
+						':dorsal_jugador' => $dorsal,
+						':id_equipo' => $id_equipo,
+						':id_jugador' => $id_jugador
+					));
+				   
+					$existe_dorsal = $existe_dorsal->fetchAll();
+
+					if (count($existe_dorsal) == 0) {	
+						$consulta = $conexion->prepare('
+							UPDATE jugadores SET nombre = :nombre, apellidos = :apellidos, dorsal = :dorsal WHERE id = :id_jugador
+		  				');
+
+						$consulta->execute(array(
+							':nombre' => $nombre,
+							':apellidos' => $apellidos,
+							':dorsal' => $dorsal,
+							':id_jugador' => $id_jugador
+						));
+						header('Location: liga-admin.php?id=' . $id_liga);
+						echo '<script> location.href="liga-admin.php?id=' . $id_liga . '"; </script>';
+					} else {
+						echo '<div class="alert alert-danger">El dorsal ya está cogido. Prueba con otro dorsal.</div>';
+					}
+				}
+				?>
 				<input type="submit" value="Actualizar">
 			</form>
 			<a href="borrarJugador.php?id=<?php echo $jugador['id']; ?>" class="btn-borrar-jugador">Borrar</a>  
