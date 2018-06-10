@@ -159,6 +159,7 @@
 	</section>
 	<section id="estadisticas" class="content content-center">
 		<div class="container">
+			<h1 class="title">ESTADÍSTICAS</h1>
 			<div class="container-wrap">
 				<div class="estadisticas-tablas">
 					<table>
