@@ -25,40 +25,6 @@ if ($now > $_SESSION['expire']) {
 	header('Location: login.php');
 }
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
-	$nombre_equipo = $_POST['equipo'];
-	  
-	$equipo_existe = $conexion->prepare('
-		  SELECT * FROM equipos WHERE nombre = :nombre_equipo AND id_liga = :id_liga
-	');
-  
-	$equipo_existe->execute(array(
-		':nombre_equipo' => $nombre_equipo,
-		':id_liga' => $id_liga
-	));
-			
-	$equipo_existe = $equipo_existe->fetchAll();
-
-	if (count($equipo_existe) == 0) {
-		$destino = '../assets/img/escudos/';
-		$foto = $destino . $_FILES['escudo']['name'];
-		move_uploaded_file($_FILES['escudo']['tmp_name'], $foto);
-
-		  $consulta = $conexion->prepare('
-			INSERT INTO equipos (nombre,id_liga,escudo) VALUES (:nombre_equipo,:id_liga,:destino)
-		  ');
-
-		$consulta->execute(array(
-			':nombre_equipo' => $nombre_equipo,
-			':id_liga' => $id_liga,
-			':destino' => $_FILES['escudo']['name']
-		));
-		header('Location: liga-admin.php?id=' . $id_liga);
-	} else {
-		echo '<div class="alert alert-danger">Este equipo ya está inscrito en esta liga. Prueba con otro nombre.</div>';
-	}
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +59,42 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		<h2  style="color:#2b3c4d;"><?php echo $liga['nombre']; ?></h2>
     	<form method="post" enctype="multipart/form-data">
       		<input type="text" name="equipo" placeholder="Nombre del equipo" required>
-	  		<input type="file" name="escudo" required>
+	  	<input type="file" name="escudo" required>
+		<?php
+		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$nombre_equipo = $_POST['equipo'];
+	  
+			$equipo_existe = $conexion->prepare('
+		  		SELECT * FROM equipos WHERE nombre = :nombre_equipo AND id_liga = :id_liga
+			');
+  
+			$equipo_existe->execute(array(
+				':nombre_equipo' => $nombre_equipo,
+				':id_liga' => $id_liga
+			));
+			
+			$equipo_existe = $equipo_existe->fetchAll();
+
+			if (count($equipo_existe) == 0) {
+				$destino = '../assets/img/escudos/';
+				$foto = $destino . $_FILES['escudo']['name'];
+				move_uploaded_file($_FILES['escudo']['tmp_name'], $foto);
+
+		  		$consulta = $conexion->prepare('
+					INSERT INTO equipos (nombre,id_liga,escudo) VALUES (:nombre_equipo,:id_liga,:destino)
+		  		');
+
+				$consulta->execute(array(
+					':nombre_equipo' => $nombre_equipo,
+					':id_liga' => $id_liga,
+					':destino' => $_FILES['escudo']['name']
+				));
+				echo '<script> location.href="liga-admin.php?id=' . $id_liga . '"; </script>';
+			} else {
+				echo '<div class="alert alert-danger">Este equipo ya está inscrito en esta liga. Prueba con otro nombre.</div>';
+			}
+		}
+		?>
       		<input type="submit" value="Insertar">
     	</form>
 	  </div>
