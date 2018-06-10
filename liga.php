@@ -168,7 +168,7 @@
 							<th class="table-center"><i class="fas fa-futbol"></i></th>
 						</tr>
 						<?php foreach ($max_goleadores as $max_goleador): ?>
-						<tr>
+						<tr onclick="location.href = 'jugador.php?id-jugador=<?php echo $max_goleador['id'] . '&id-equipo=' . $max_goleador['id_equipo'] . '&id-liga=' . $id_liga; ?>'">
 							<td><?php echo $max_goleador['nombre'] . ' ' . $max_goleador['apellidos']; ?></td>
 							<td class="table-center"><?php echo $max_goleador[3]; ?></td>
 						</tr>
@@ -182,7 +182,7 @@
 							<th class="table-center"><img src="assets/img/amarilla.png" alt="Amarillas"></th>
 						</tr>
 						<?php foreach ($max_amarillas as $max_amarilla): ?>
-						<tr>
+						<tr onclick="location.href = 'jugador.php?id-jugador=<?php echo $max_amarilla['id'] . '&id-equipo=' . $max_amarilla['id_equipo'] . '&id-liga=' . $id_liga; ?>'">
 							<td><?php echo $max_amarilla['nombre'] . ' ' . $max_amarilla['apellidos']; ?></td>
 							<td class="table-center"><?php echo $max_amarilla[3]; ?></td>
 						</tr>
@@ -196,7 +196,7 @@
 							<th class="table-center"><img src="assets/img/roja.png" alt="Rojas"></th>
 						</tr>
 						<?php foreach ($max_rojas as $max_roja): ?>
-						<tr>
+						<tr onclick="location.href = 'jugador.php?id-jugador=<?php echo $max_roja['id'] . '&id-equipo=' . $max_roja['id_equipo'] . '&id-liga=' . $id_liga; ?>'">
 							<td><?php echo $max_roja['nombre'] . ' ' . $max_roja['apellidos']; ?></td>
 							<td class="table-center"><?php echo $max_roja[3]; ?></td>
 						</tr>
