@@ -5,31 +5,6 @@ session_name('admin');
 require '../assets/php/config.php';
 require '../assets/php/functions.php';
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
-	$usuario = $_POST['usuario'];
-  $passwd = $_POST['passwd'];
-
-	$conexion = conectar_bd($config_bd);
-
-	$resultado = comprobarAdmin($conexion,$usuario);
-
-	if(count($resultado) > 0) {
-		  $resultado = $resultado[0];
-		  if(hash('SHA1',$passwd) == $resultado['passwd']) {
-			  $_SESSION['login'] = true;
-			  $_SESSION['usuario'] = $usuario;
-			  $_SESSION['start'] = time();
-			  $_SESSION['expire'] = $_SESSION['start'] + (5 * 60);
-			  header('Location: index.php');
-		  } else {
-			echo '<div class="alert alert-danger">Contraseña incorrecta.</div>';
-		  }
-	} else {
-		echo '<div class="alert alert-danger">Usuario incorrecto.</div>';
-  }
-
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -60,9 +35,35 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<div class="container-insertar-liga">
     <h1 class="title" style="color:#2b3c4d;">LOG IN</h1>
     <form method="post">
-      <input type="text" name="usuario" placeholder="Usuario" required>
-	  <input type="password" name="passwd" placeholder="Contraseña" required>
-      <input type="submit" value="Acceder">
+      	<input type="text" name="usuario" placeholder="Usuario" required>
+	<input type="password" name="passwd" placeholder="Contraseña" required>
+	<?php
+	  if($_SERVER['REQUEST_METHOD'] == 'POST') {
+		$usuario = $_POST['usuario'];
+  		$passwd = $_POST['passwd'];
+
+		$conexion = conectar_bd($config_bd);
+
+		$resultado = comprobarAdmin($conexion,$usuario);
+
+		if(count($resultado) > 0) {
+			$resultado = $resultado[0];
+		  	if(hash('SHA1',$passwd) == $resultado['passwd']) {
+				$_SESSION['login'] = true;
+			  	$_SESSION['usuario'] = $usuario;
+			  	$_SESSION['start'] = time();
+			  	$_SESSION['expire'] = $_SESSION['start'] + (5 * 60);
+			  	echo '<script> location.href="index.php"; </script>';
+		  	} else {
+				echo '<div class="alert alert-danger">Contraseña incorrecta.</div>';
+		  	}
+		} else {
+			echo '<div class="alert alert-danger">Usuario incorrecto.</div>';
+  		}
+
+	}  
+	?>
+      	<input type="submit" value="Acceder">
     </form>
 	</div>
 	</section>
