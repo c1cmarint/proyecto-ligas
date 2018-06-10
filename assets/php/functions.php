@@ -178,8 +178,8 @@ function obtener_tarjetas_partido($conexion,$id_partido) {
 
 function obtener_max_goleadores($conexion,$id_liga) {
 	$consulta = $conexion->prepare('
-		SELECT jugadores.id, jugadores.nombre, jugadores.apellidos, jugadores.id_equipo, (SELECT COUNT(*) FROM goles WHERE goles.id_jugador = jugadores.id) 
-		FROM jugadores, equipos WHERE jugadores.id_equipo = equipos.id AND equipos.id_liga = :id_liga ORDER BY (SELECT COUNT(*) FROM goles WHERE goles.id_jugador = jugadores.id) DESC LIMIT 10
+		SELECT jugadores.id, jugadores.nombre, jugadores.apellidos, jugadores.id_equipo, (SELECT COUNT(*) FROM goles WHERE goles.id_jugador = jugadores.id) as goles 
+		FROM jugadores, equipos WHERE jugadores.id_equipo = equipos.id AND equipos.id_liga = :id_liga 	GROUP BY jugadores.id ORDER BY goles DESC LIMIT 10
 	');
 	$consulta->execute(array(
 		':id_liga' => $id_liga
@@ -189,8 +189,8 @@ function obtener_max_goleadores($conexion,$id_liga) {
 
 function obtener_max_amarillas($conexion,$id_liga) {
 	$consulta = $conexion->prepare('
-		SELECT jugadores.id, jugadores.nombre, jugadores.apellidos, jugadores.id_equipo, (SELECT COUNT(*) FROM tarjetas WHERE tarjetas.id_jugador = jugadores.id AND color="amarilla") 
-		FROM jugadores, equipos WHERE jugadores.id_equipo = equipos.id AND equipos.id_liga = :id_liga ORDER BY (SELECT COUNT(*) FROM tarjetas WHERE tarjetas.id_jugador = jugadores.id) DESC LIMIT 10
+		SELECT jugadores.id, jugadores.nombre, jugadores.apellidos, jugadores.id_equipo, (SELECT COUNT(*) FROM tarjetas WHERE tarjetas.id_jugador = jugadores.id AND color="amarilla") as tarjetas 
+		FROM jugadores, equipos WHERE jugadores.id_equipo = equipos.id AND equipos.id_liga = :id_liga 	GROUP BY jugadores.id ORDER BY tarjetas DESC LIMIT 10
 	');
 	$consulta->execute(array(
 		':id_liga' => $id_liga
@@ -200,8 +200,8 @@ function obtener_max_amarillas($conexion,$id_liga) {
 
 function obtener_max_rojas($conexion,$id_liga) {
 	$consulta = $conexion->prepare('
-		SELECT jugadores.id, jugadores.nombre, jugadores.apellidos, jugadores.id_equipo, (SELECT COUNT(*) FROM tarjetas WHERE tarjetas.id_jugador = jugadores.id AND color="roja") 
-		FROM jugadores, equipos WHERE jugadores.id_equipo = equipos.id AND equipos.id_liga = :id_liga ORDER BY (SELECT COUNT(*) FROM tarjetas WHERE tarjetas.id_jugador = jugadores.id) DESC LIMIT 10
+		SELECT jugadores.id, jugadores.nombre, jugadores.apellidos, jugadores.id_equipo, (SELECT COUNT(*) FROM tarjetas WHERE tarjetas.id_jugador = jugadores.id AND color="roja") as tarjetas 
+		FROM jugadores, equipos WHERE jugadores.id_equipo = equipos.id AND equipos.id_liga = :id_liga GROUP BY jugadores.id ORDER BY tarjetas DESC LIMIT 10
 	');
 	$consulta->execute(array(
 		':id_liga' => $id_liga
