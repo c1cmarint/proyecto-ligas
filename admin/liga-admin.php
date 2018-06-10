@@ -84,12 +84,12 @@
 		<div class="container-wrap">
 			<?php if (count($equipos) == 0): ?>
 			<p>Debes generar antes los equipos para poder crear las jornadas.</p>
+			<a href="insertarEquipo.php?id=<?php echo $id_liga; ?>"><div class="back content-center" title="Nuevo equipo"><span><i class="fas fa-plus"></i></span></div></a>
 			<?php
 			;else:
 				$nums_jornadas = obtener_nums_jornadas($conexion,$id_liga);
 				if (count($nums_jornadas) == 0):
 			?>
-			<a href="insertarEquipo.php?id=<?php echo $id_liga; ?>"><div class="back content-center" title="Nuevo equipo"><span><i class="fas fa-plus"></i></span></div></a>
 			<div class="generar-jornadas">
 				<p>No se han generado aún las jornadas.</p>
 				<a href="elegirFechas.php?id=<?php echo $id_liga; ?>" class="btn-jornadas">Elegir Fechas de los Partidos</a>
