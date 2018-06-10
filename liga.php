@@ -170,7 +170,7 @@
 						<?php foreach ($max_goleadores as $max_goleador): ?>
 						<tr onclick="location.href = 'jugador.php?id-jugador=<?php echo $max_goleador['id'] . '&id-equipo=' . $max_goleador['id_equipo'] . '&id-liga=' . $id_liga; ?>'">
 							<td><?php echo $max_goleador['nombre'] . ' ' . $max_goleador['apellidos']; ?></td>
-							<td class="table-center"><?php echo $max_goleador[5]; ?></td>
+							<td class="table-center"><?php echo $max_goleador[4]; ?></td>
 						</tr>
 						<?php endforeach; ?>
 					</table>
@@ -184,7 +184,7 @@
 						<?php foreach ($max_amarillas as $max_amarilla): ?>
 						<tr onclick="location.href = 'jugador.php?id-jugador=<?php echo $max_amarilla['id'] . '&id-equipo=' . $max_amarilla['id_equipo'] . '&id-liga=' . $id_liga; ?>'">
 							<td><?php echo $max_amarilla['nombre'] . ' ' . $max_amarilla['apellidos']; ?></td>
-							<td class="table-center"><?php echo $max_amarilla[5]; ?></td>
+							<td class="table-center"><?php echo $max_amarilla[4]; ?></td>
 						</tr>
 						<?php endforeach; ?>
 					</table>
@@ -198,7 +198,7 @@
 						<?php foreach ($max_rojas as $max_roja): ?>
 						<tr onclick="location.href = 'jugador.php?id-jugador=<?php echo $max_roja['id'] . '&id-equipo=' . $max_roja['id_equipo'] . '&id-liga=' . $id_liga; ?>'">
 							<td><?php echo $max_roja['nombre'] . ' ' . $max_roja['apellidos']; ?></td>
-							<td class="table-center"><?php echo $max_roja[5]; ?></td>
+							<td class="table-center"><?php echo $max_roja[4]; ?></td>
 						</tr>
 						<?php endforeach; ?>
 					</table>
