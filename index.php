@@ -15,23 +15,19 @@
 		$mensaje = $_POST['mensaje'];
 		$para = 'c1cmarint@ieslavereda.es';
 
-		$cabeceras = 'From' . " " . $email . "\r\n";
-      	$cabeceras .= "Content-type: text/html; charset=utf-8";
+		$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+		$cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-	    $msjCorreo = "Nombre: " . $nombre;
-      	$msjCorreo .= "\r\n";
-      	$msjCorreo .= "Email: " . $email;
-      	$msjCorreo .= "\r\n";
-      	$msjCorreo .= "Asunto: " . $asunto;
-      	$msjCorreo .= "\r\n";
-      	$msjCorreo .= "Mensaje: " . $mensaje;
+	    	$msjCorreo = "Nombre: " . $nombre;
+      		$msjCorreo .= "\r\n";
+      		$msjCorreo .= "Email: " . $email;
+      		$msjCorreo .= "\r\n";
+      		$msjCorreo .= "Asunto: " . $asunto;
+      		$msjCorreo .= "\r\n";
+      		$msjCorreo .= "Mensaje: " . $mensaje;
 		$msjCorreo .= "\r\n";
 		  
-		if (mail($para, $asunto, $msjCorreo, $cabeceras)) {
-        	echo "<script language='javascript'>alert('Mensaje enviado.');</script>";
-    	} else {
-        	echo "<script language='javascript'>alert('No se ha enviado correctamente, por favor contacte con nosotros a través del teléfono móvil. Disculpe las molestias.');</script>";
-    	}
+		mail($para, $asunto, $msjCorreo, $cabeceras);
 	}
 
 ?>
