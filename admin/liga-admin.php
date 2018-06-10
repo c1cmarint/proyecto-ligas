@@ -91,6 +91,7 @@
 				if (count($nums_jornadas) == 0):
 			?>
 			<div class="generar-jornadas">
+				<a href="insertarEquipo.php?id=<?php echo $id_liga; ?>"><div class="back content-center" title="Nuevo equipo"><span><i class="fas fa-plus"></i></span></div></a>
 				<p>No se han generado aún las jornadas.</p>
 				<a href="elegirFechas.php?id=<?php echo $id_liga; ?>" class="btn-jornadas">Elegir Fechas de los Partidos</a>
 			</div>
