@@ -73,6 +73,5 @@ foreach ($jornadas as $jornada => $partidos) {
 		));
 	}
 }
-
-header('Location: liga-admin.php?id=' . $id);
+echo '<script> location.href="liga-admin.php?id=' . $id . '"; </script>';
 ?>
